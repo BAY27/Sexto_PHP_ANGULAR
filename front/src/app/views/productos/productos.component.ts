@@ -3,17 +3,20 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IProducto } from '../../Interfaces/iproducto';
 import { ProductosService } from '../../Services/productos.service';
+import { CommonModule } from '@angular/common'; 
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, ReactiveFormsModule],
+  imports: [RouterLink, RouterLinkActive, ReactiveFormsModule, CommonModule],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css',
 })
 export class ProductosComponent {
+  productos: any[];
   title = 'Productos';
   lista: IProducto[];
+
 
   constructor(private productosServicio: ProductosService) {}
 

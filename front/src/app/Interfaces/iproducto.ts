@@ -3,5 +3,5 @@ export interface IProducto {
     Nombre:String;
     Precio:number;
     Cantidad:number;
-    FechaIngreso:String;
+    FechaIngreso:Date;
 }
