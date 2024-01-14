@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ProductosService } from '../../../Services/productos.service';
+import { ProductoService } from '../../../Services/productos.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 @Component({
@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
   templateUrl: './nuevo-producto.component.html',
   styleUrl: './nuevo-producto.component.css',
 })
-export class NuevoProductosComponent {
+export class NuevoProductoComponent {
   title = '';
   id!: number;
 
@@ -24,14 +24,12 @@ export class NuevoProductosComponent {
     Nombre: new FormControl('', Validators.required),
     Precio: new FormControl('', Validators.required),
     Cantidad: new FormControl('', Validators.required),
-    FechaIngreso: new FormControl('', Validators.required),
   });
   constructor(
-    private productosServicio: ProductosService,
+    private productoServicio: ProductoService,
     private rutas: Router,
     private parametros: ActivatedRoute
   ) {}
-
   ngOnInit() {
     this.id = this.parametros.snapshot.params['id'];
     console.log(this.id);
@@ -39,13 +37,14 @@ export class NuevoProductosComponent {
       this.title = 'Nuevo Producto';
     } else {
       this.title = 'Actualizar Producto';
-      this.productosServicio.uno(this.id).subscribe((res) => {
+      this.productoServicio.uno(this.id).subscribe((res) => {
         console.log(res);
         this.producto.patchValue({
           Nombre: res.Nombre,
           Precio: res.Precio,
           Cantidad: res.Cantidad,
           FechaIngreso: res.FechaIngreso,
+
         });
       });
     }
@@ -66,8 +65,8 @@ export class NuevoProductosComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         if (this.id == 0 || this.id == undefined) {
-          this.productosServicio
-            .insertar(this.producto.value)
+          this.productoServicio
+            .insertar(this.producto.value, )
             .subscribe((res) => {
               Swal.fire({
                 title: 'Productos',
@@ -78,7 +77,7 @@ export class NuevoProductosComponent {
               this.id = 0;
             });
         } else {
-          this.productosServicio
+          this.productoServicio
             .actualizar(this.producto.value, this.id)
             .subscribe((res) => {
               Swal.fire({
@@ -86,7 +85,7 @@ export class NuevoProductosComponent {
                 text: 'Se actualizó con éxito el registro',
                 icon: 'success',
               });
-              this.rutas.navigate(['/Productos']);
+              this.rutas.navigate(['/productos']);
               this.id = 0;
             });
         }

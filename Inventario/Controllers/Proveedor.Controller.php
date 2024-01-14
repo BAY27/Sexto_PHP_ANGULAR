@@ -21,9 +21,9 @@ switch ($_GET["op"]) {
         echo json_encode($todos); //devuelvo el arreglo en formato json
         break;
     case "uno":
-        $ProveedorId = $_POST["proveedorId"]; //defino una variable para almacenar el id del usuario, la variable se obtiene mediante POST
+        $ProductoId = $_POST["proveedorId"]; //defino una variable para almacenar el id del usuario, la variable se obtiene mediante POST
         $datos = array(); //defino un arreglo
-        $datos = $proveedor->uno($ProveedorId); //llamo al modelo de usuarios e invoco al procedimiento uno y almaceno en una variable
+        $datos = $proveedor->uno($ProductoId); //llamo al modelo de usuarios e invoco al procedimiento uno y almaceno en una variable
         $uno = mysqli_fetch_assoc($datos); //recorro el arreglo de datos
         echo json_encode($uno); //devuelvo el arreglo en formato json
         break;
